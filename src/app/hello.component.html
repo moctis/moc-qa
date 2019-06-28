@@ -1,0 +1,16 @@
+<button class="btn btn-primary" (click)="getLibraries()">Update</button>
+
+<div class="row" *ngFor="let block of libraries">
+<div  class="col-left">
+  <img src="{{block.coverImage}}" width="60"/>
+</div>
+<div  class="col-right">
+   <a [routerLink]="['/b', block._id]">
+   <div class="title">{{block.title}} <sub>[{{block.newChaptersCount}}]</sub></div></a>
+</div>
+</div>
+<button class="btn btn-primary" (click)="clearAll()">Clear</button>
+  <input type="checkbox" [(ngModel)]="isToken"/>
+  <div *ngIf="isToken">
+  <input [(ngModel)]="token" /><button (click)="setToken()">token</button>
+  </div>

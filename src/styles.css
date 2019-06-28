@@ -1,0 +1,19 @@
+/* Add application styles & imports to this file! */
+body {
+  background: black;
+  color:whitesmoke;
+}
+
+html, body, my-app, router-outlet {
+  width: 100%;
+}
+
+button, .btn{
+  margin: 5px;
+  padding: 5px;
+  height: 2rem;
+}
+
+pre {
+  color: white;
+}

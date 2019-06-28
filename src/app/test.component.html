@@ -1,0 +1,11 @@
+<button (click)="openDb()">openDB</button>
+<button (click)="listDb()">listDB</button>
+<button (click)="clear()">clear</button>
+<input type="text" [(ngModel)]="newValue" />  <button (click)="add()">add</button>
+<pre>
+--- msg ---
+{{storage.msg}}
+
+--- Value ---
+{{storage.values}}
+</pre>

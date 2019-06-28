@@ -1,0 +1,20 @@
+h1 { font-family: Lato; } 
+a:visited {color:white;} 
+a{color:white}
+.title { 
+  display: block;
+}
+.col-left {
+    position: relative;
+    width: 80px;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+.col-right {
+    position: relative;
+    width: calc(100% - 100px);
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+}
