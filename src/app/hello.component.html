@@ -1,14 +1,19 @@
+<div class="flex-container">
+  <div class="flex-block" *ngFor="let block of libraries">
+    <div class="warp">
+      <a [routerLink]="['/b', block._id]">
+      <div  class="block-image">
+        <div class="block-count" *ngIf="block.newChaptersCount"><div>{{block.newChaptersCount}}</div></div>
+        <img src="{{block.coverImage}}"/>
+      </div>
+      <div class="block-title">
+        {{block.title}}
+      </div>
+      </a>
+      </div>
+  </div>
+</div>
 <button class="btn btn-primary" (click)="getLibraries()">Update</button>
-
-<div class="row" *ngFor="let block of libraries">
-<div  class="col-left">
-  <img src="{{block.coverImage}}" width="60"/>
-</div>
-<div  class="col-right">
-   <a [routerLink]="['/b', block._id]">
-   <div class="title">{{block.title}} <sub>[{{block.newChaptersCount}}]</sub></div></a>
-</div>
-</div>
 <button class="btn btn-primary" (click)="clearAll()">Clear</button>
   <input type="checkbox" [(ngModel)]="isToken"/>
   <div *ngIf="isToken">

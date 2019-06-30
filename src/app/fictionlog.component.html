@@ -1,30 +1,42 @@
 <div (swiperight)="swipe(-1)" (swipeleft)="swipe(1)" (swipe)="onSwipe($event)">
-	<button onClick="javascript:window.scroll(0,100000)"> {{bookInfo?.title}} </button>
+  
+  <header>
+    <a [routerLink]="['/']" class="btn btn-primary">
+      &nbsp; &lt; &nbsp;
+      <!-- <fa-icon [icon]="['fa', 'chevron-left']"></fa-icon>     -->
+    </a> 
+    <sub>{{bookInfo?.title}}</sub>
+  </header>
+	<!-- <button onClick="javascript:window.scroll(0,100000)" class="btn btn-danger"> 
+    <fa-icon [icon]="['fa', 'angle-double-down']"></fa-icon>
+  </button> -->
+
   <p class="title" (click)="swipe(1)">{{book?.chapterList?.chapters[current.chapterIndex]?.title}}
-    <sub *ngIf="book?.chapterList?.chapters[current.chapterIndex]?.isPurchaseRequired">
-      <span *ngIf="book?.chapterList?.chapters[current.chapterIndex]?.price?.silverCoin">{{book?.chapterList?.chapters[current.chapterIndex]?.price?.silverCoin}}s</span>
-      <span *ngIf="book?.chapterList?.chapters[current.chapterIndex]?.price?.goldCoin">{{book?.chapterList?.chapters[current.chapterIndex]?.price?.goldCoin}}g</span>
-    </sub>
   </p> 
 
-  <p *ngFor=" let block of data?.chapter?.contentRawState?.blocks">
+  <p *ngFor="let block of data?.chapter?.contentRawState?.blocks">
     {{block?.text}}
   </p>
 
-
-  <button class="btn btn-primary" (click)="getChapter()">Chapter</button>
   <button class="btn btn-primary" (click)="getBook()">Book</button>
+  <button class="btn btn-primary" (click)="getChapter()">Chapter</button>
   <span *ngIf="book?.chapterList?.chapters[current.chapterIndex]?.isPurchaseRequired">
-  <button class="btn btn-primary" (click)="purchaseChapter()">Purchase</button>
+  <button class="btn btn-primary" (click)="purchaseChapter()">
+    <span *ngIf="book?.chapterList?.chapters[current.chapterIndex]?.price?.silverCoin">{{book?.chapterList?.chapters[current.chapterIndex]?.price?.silverCoin}}s</span>
+      <span *ngIf="book?.chapterList?.chapters[current.chapterIndex]?.price?.goldCoin">{{book?.chapterList?.chapters[current.chapterIndex]?.price?.goldCoin}}g</span>
+  </button>
   </span>
   
+  <br/>
+  <button class="btn btn-primary" (click)="swipe(-1)">&nbsp; &lt; &nbsp;</button>
+  
+  <div class="chapterIndex">
+  <input  [(ngModel)]="current.chapterIndex" type="number"  (change)="loadChapter()" />
+  / {{book?.chapterList?.chapters.length-1}}
+  </div>
+  <button class="btn btn-primary" (click)="swipe(1)">&nbsp; &gt; &nbsp;</button>
+  <!-- <button class="btn btn-primary" onClick="javascript:window.scroll(0,0)"> top </button> -->
+  <!-- <a [routerLink]="['/']" class="btn btn-primary"> Home </a>  -->
 
-  <input [(ngModel)]="current.chapterIndex" type="number" style="width:5em;" (change)="loadChapter()" />
-  / {{book?.chapterList?.chapters.length}}
-  <button class="btn btn-primary" (click)="swipe(-1)"> Back </button>
-  <button class="btn btn-primary" (click)="swipe(1)"> Next </button>
-  <button class="btn btn-primary" onClick="javascript:window.scroll(0,0)"> top </button>
-  <a [routerLink]="['/']" class="btn btn-primary"> Home </a> 
-
-  <p class="title" (click)="swipe(1)">{{book?.chapterList?.chapters[current.chapterIndex]?.title}}</p> 
+  <p>{{book?.chapterList?.chapters[current.chapterIndex]?.title}}</p> 
 </div>
