@@ -4,12 +4,12 @@
     <a [routerLink]="['/']" class="btn btn-primary">
       &nbsp; &lt; &nbsp;
       <!-- <fa-icon [icon]="['fa', 'chevron-left']"></fa-icon>     -->
-    </a> 
-    <sub>{{bookInfo?.title}}</sub>
+    </a>     
+    <a onClick="javascript:window.scroll(0,100000)" class=""> 
+      <sub>{{bookInfo?.title}}</sub>
+    </a>
   </header>
-	<!-- <button onClick="javascript:window.scroll(0,100000)" class="btn btn-danger"> 
-    <fa-icon [icon]="['fa', 'angle-double-down']"></fa-icon>
-  </button> -->
+	
 
   <p class="title" (click)="swipe(1)">{{book?.chapterList?.chapters[current.chapterIndex]?.title}}
   </p> 
@@ -18,7 +18,7 @@
     {{block?.text}}
   </p>
 
-  <button class="btn btn-primary" (click)="getBook()">Book</button>
+ 
   <button class="btn btn-primary" (click)="getChapter()">Chapter</button>
   <span *ngIf="book?.chapterList?.chapters[current.chapterIndex]?.isPurchaseRequired">
   <button class="btn btn-primary" (click)="purchaseChapter()">
@@ -32,9 +32,10 @@
   
   <div class="chapterIndex">
   <input  [(ngModel)]="current.chapterIndex" type="number"  (change)="loadChapter()" />
-  / {{book?.chapterList?.chapters.length-1}}
+  + {{book?.chapterList?.chapters.length-1-current.chapterIndex}}
   </div>
   <button class="btn btn-primary" (click)="swipe(1)">&nbsp; &gt; &nbsp;</button>
+   <button class="btn btn-primary" (click)="getBook()">Fetch</button>
   <!-- <button class="btn btn-primary" onClick="javascript:window.scroll(0,0)"> top </button> -->
   <!-- <a [routerLink]="['/']" class="btn btn-primary"> Home </a>  -->
 
