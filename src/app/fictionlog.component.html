@@ -14,8 +14,12 @@
   <p class="title" (click)="swipe(1)">{{book?.chapterList?.chapters[current.chapterIndex]?.title}}
   </p> 
 
-  <p *ngFor="let block of data?.chapter?.contentRawState?.blocks">
-    {{block?.text}}
+  <p *ngFor="let block of data?.chapter?.contentRawState?.blocks" [ngSwitch]="block?.type">
+    <span *ngSwitchCase="'unstyled'">{{block?.text}}</span>
+    <figure class="ch-image" *ngSwitchCase="'atomic:image'">
+      <img src="{{block.data.src}}" alt="{{block?.text}}"><figcaption class="description-image">{{block?.text}}</figcaption>
+    </figure>
+    <span *ngSwitchDefault>Unknow type {{block?.type}}</span>
   </p>
 
  
