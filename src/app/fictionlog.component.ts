@@ -128,13 +128,13 @@ export class FictionlogComponent {
     this.spinnerService.show();
     setTimeout(() => this.spinnerService.hide(), this.time);
     this.http.post('https://api.k8s.fictionlog.co/graphql', req, options).subscribe(data => {
-      this.spinnerService.hide();
       this.book = data['data'];
 
       localStorage.setItem("bookId." + this.bookId, JSON.stringify(this.book));
       this.current.bookId = this.bookId;
       localStorage.setItem("current." + this.bookId, JSON.stringify(this.current));
       this.swipe(0);
+      this.spinnerService.hide();
       //{{book?.chapterList?.chapters[current.chapterIndex]?.title}}
     });
   }
@@ -153,8 +153,8 @@ export class FictionlogComponent {
     this.spinnerService.show();
     setTimeout(() => this.spinnerService.hide(), this.time);
     this.http.post('https://api.k8s.fictionlog.co/graphql', req, options).subscribe(data => {
-      this.spinnerService.hide();
       this.setChapter(data['data'])
+      this.spinnerService.hide();
     });
   }
 
@@ -200,13 +200,13 @@ export class FictionlogComponent {
     this.spinnerService.show();
     setTimeout(() => this.spinnerService.hide(), this.time);
     this.http.post('https://api.k8s.fictionlog.co/graphql', req, options).subscribe(data => {
-      this.spinnerService.hide();
       //console.log('done');
       //console.log(data);
       chapter.silverCoin = null;
       chapter.goldCoin = null
       chapter.isPurchaseRequired = false;
       this.setChapter({ 'chapter': data['data']['purchaseChapter'] })
+      this.spinnerService.hide();
     });
   }
 
