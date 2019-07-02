@@ -17,9 +17,11 @@
   <p *ngFor="let block of data?.chapter?.contentRawState?.blocks" [ngSwitch]="block?.type">
     <span *ngSwitchCase="'unstyled'">{{block?.text}}</span>
     <figure class="ch-image" *ngSwitchCase="'atomic:image'">
-      <img src="{{block.data.src}}" alt="{{block?.text}}"><figcaption class="description-image">{{block?.text}}</figcaption>
+      <img src="{{block.data.src}}" alt="{{block?.text}}" />
+      <figcaption class="description-image">{{block?.text}}</figcaption>
     </figure>
-    <span *ngSwitchDefault>Unknow type {{block?.type}}</span>
+    <span *ngSwitchCase="'center'">{{block?.text}}</span>
+    <span *ngSwitchDefault>Unknow type [{{block?.type}}]</span>
   </p>
 
  
@@ -27,7 +29,7 @@
   <span *ngIf="book?.chapterList?.chapters[current.chapterIndex]?.isPurchaseRequired">
   <button class="btn btn-primary" (click)="purchaseChapter()">
     <span *ngIf="book?.chapterList?.chapters[current.chapterIndex]?.price?.silverCoin">{{book?.chapterList?.chapters[current.chapterIndex]?.price?.silverCoin}}s</span>
-      <span *ngIf="book?.chapterList?.chapters[current.chapterIndex]?.price?.goldCoin">{{book?.chapterList?.chapters[current.chapterIndex]?.price?.goldCoin}}g</span>
+    <span *ngIf="book?.chapterList?.chapters[current.chapterIndex]?.price?.goldCoin">{{book?.chapterList?.chapters[current.chapterIndex]?.price?.goldCoin}}g</span>
   </button>
   </span>
   
