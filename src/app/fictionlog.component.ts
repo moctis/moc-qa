@@ -22,7 +22,7 @@ export class FictionlogComponent {
   blocks: any[] = [];
   private sub: any;
   errorText: any;
-  time = 30000;
+  time = 30*1000;
 
   constructor(private http: HttpClient, private route: ActivatedRoute, private spinnerService: Ng4LoadingSpinnerService) {
     this.current = { chapterIndex: 0 };
@@ -126,7 +126,7 @@ export class FictionlogComponent {
     var req = { "operationName": null, "variables": { "bookId": this.bookId }, "query": "query ($bookId: ID!, $filter: ChapterListFilter) {\n  chapterList(bookId: $bookId, filter: $filter) {\n    chapters {\n      _id\n      title\n      viewsCount\n      chapterCommentsCount\n      isPurchaseRequired\n      publishedAt\n      status\n      book {\n        _id\n        __typename\n      }\n      price {\n        type\n        silverCoin\n        goldCoin\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n}\n" };
 
     this.spinnerService.show();
-    setTimeout(() => this.spinnerService.hide(), this.time);
+    //setTimeout(() => this.spinnerService.hide(), this.time);
     this.http.post('https://api.k8s.fictionlog.co/graphql', req, options).subscribe(data => {
       this.book = data['data'];
 
@@ -151,7 +151,7 @@ export class FictionlogComponent {
 
     var req = { "operationName": null, "variables": { "chapterId": this.chapterId }, "query": "query ($chapterId: ID!) {\n  chapter(chapterId: $chapterId) {\n    ...ChapterFragment\n    priceId\n    userId\n    viewsCount\n    chapterCommentsCount\n    book {\n      _id\n      title\n      description\n      coverImage\n      addedToLibrary\n      hasPaidChapter\n      bundlePurchased\n      bundlePrice {\n        goldCoin\n        __typename\n      }\n      totalPrice {\n        goldCoin\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n}\n\nfragment ChapterFragment on Chapter {\n  _id\n  title\n  contentRawState\n  isWriter\n  status\n  publishedAt\n  isPurchaseRequired\n  priceId\n  price {\n    type\n    goldCoin\n    silverCoin\n    __typename\n  }\n  user {\n    _id\n    displayName\n    username\n    __typename\n  }\n  nextChapter {\n    _id\n    title\n    price {\n      type\n      goldCoin\n      silverCoin\n      __typename\n    }\n    status\n    purchased\n    bookId\n    __typename\n  }\n  editChapter {\n    _id\n    title\n    contentRawState\n    status\n    rejectNote\n    __typename\n  }\n  __typename\n}\n" }
     this.spinnerService.show();
-    setTimeout(() => this.spinnerService.hide(), this.time);
+    //setTimeout(() => this.spinnerService.hide(), this.time);
     this.http.post('https://api.k8s.fictionlog.co/graphql', req, options).subscribe(data => {
       this.setChapter(data['data'])
       this.spinnerService.hide();
@@ -198,7 +198,7 @@ export class FictionlogComponent {
 
     var req = { "operationName": null, "variables": { "chapterId": this.chapterId, "input": { "coinType": coinType, "amount": amount } }, "query": "mutation ($chapterId: ID!, $input: PurchaseInput!) {\n  purchaseChapter(chapterId: $chapterId, input: $input) {\n    ...ChapterFragment\n    viewsCount\n    chapterCommentsCount\n    book {\n      _id\n      title\n      coverImage\n      addedToLibrary\n      hasPaidChapter\n      __typename\n    }\n    __typename\n  }\n}\n\nfragment ChapterFragment on Chapter {\n  _id\n  title\n  contentRawState\n  isWriter\n  status\n  publishedAt\n  isPurchaseRequired\n  priceId\n  price {\n    type\n    goldCoin\n    silverCoin\n    __typename\n  }\n  user {\n    _id\n    displayName\n    username\n    __typename\n  }\n  nextChapter {\n    _id\n    title\n    price {\n      type\n      goldCoin\n      silverCoin\n      __typename\n    }\n    status\n    purchased\n    bookId\n    __typename\n  }\n  editChapter {\n    _id\n    title\n    contentRawState\n    status\n    rejectNote\n    __typename\n  }\n  __typename\n}\n" }
     this.spinnerService.show();
-    setTimeout(() => this.spinnerService.hide(), this.time);
+    //setTimeout(() => this.spinnerService.hide(), this.time);
     this.http.post('https://api.k8s.fictionlog.co/graphql', req, options).subscribe(data => {
       //console.log('done');
       //console.log(data);
