@@ -21,6 +21,7 @@
       <figcaption class="description-image">{{block?.text}}</figcaption>
     </figure>
     <span *ngSwitchCase="'center'">{{block?.text}}</span>
+    <span *ngSwitchCase="'indent'">{{block?.text}}</span>
     <span *ngSwitchDefault>{{block?.text}} Unknow type [{{block?.type}}]</span>
   </p>
 
