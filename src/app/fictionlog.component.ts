@@ -69,26 +69,8 @@ export class FictionlogComponent {
     try {
       this.chapterId = this.book.chapterList.chapters[this.current.chapterIndex]._id;
       this.data = JSON.parse(localStorage.getItem("chapterId." + this.chapterId));
-      this.splitBlock();
+      this.blocks = [];
     } catch (e) { this.errorText = e; }
-  }
-
-  splitBlock() {
-    var x = this.data || {};
-    x = x.chapter || {};
-    x = x.contentRawState || {};
-    x = x.blocks || {};
-
-    this.blocks = x;
-    // var bb = [];
-    // x.forEach(p => {
-    //     var texts = p.text.split("\n");
-    //     texts.forEach(q => {
-    //         var line = {"text": q};
-    //         bb.push(line);
-    //     });
-    // });
-    // this.blocks = bb;
   }
 
   swipe(diff) {
@@ -159,19 +141,43 @@ export class FictionlogComponent {
   }
 
   splitBlocks(data) {
-    var result =[];
-    for (var p in data) {
-      result.push(p);
-    }
+    var x = data || {};
+    x = x.chapter || {};
+    x = x.contentRawState || {};
+    data = x.blocks || {};
+
+    console.log('split data', data);
+    var result = [];
+    data.forEach(p => {
+      //var txt = p.text.replace(/\n\n/g, "\n")
+      var txt = p.text;
+      var txts = txt.split("\n\n");
+      
+      txts.forEach( t => {
+        
+        var newBlock = {
+          data: p.data,
+          depth: p.depth,
+          entityRanges: p.entityRanges,
+          inlineStyleRanges: p.inlineStyleRanges,
+          key: p.key,
+          text: t.trim(),
+          type: p.type
+        };
+        if (newBlock.text != "") {
+          result.push(newBlock);
+        }
+      }); 
+    });
+    console.log('split result', result)
     return result;
   }
 
   setChapter(data) {
-    
     this.data = data;
-    //this.blocks = [];
+    this.blocks = [];
     //console.log('this.data', data.chapter.contentRawState);
-    //this.blocks = this.splitBlocks(data.chapter.contentRawState);
+    this.blocks = this.splitBlocks(data);
     //console.log('setChapter', this.blocks);
     // localStorage.setItem("chapterId."+this.chapterId, JSON.stringify(this.data));
     this.current.chapterId = this.chapterId;
@@ -179,8 +185,7 @@ export class FictionlogComponent {
 
     this.book.chapterList.chapters[this.current.chapterIndex].isPurchaseRequired = this.data.chapter.isPurchaseRequired;
     localStorage.setItem("bookId." + this.bookId, JSON.stringify(this.book));
-    this.splitBlock();
-
+ 
   }
 
   purchaseChapter() {

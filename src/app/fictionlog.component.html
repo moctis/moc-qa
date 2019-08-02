@@ -13,8 +13,7 @@
 
   <p class="title" (click)="swipe(1)">{{book?.chapterList?.chapters[current.chapterIndex]?.title}}
   </p> 
-
-  <p *ngFor="let block of data?.chapter?.contentRawState?.blocks" [ngSwitch]="block?.type" class="fg-blocks">
+  <p *ngFor="let block of blocks" [ngSwitch]="block?.type" class="fg-blocks">
     <span *ngSwitchCase="'unstyled'">{{block?.text}}</span>
     <figure class="chapterImage" *ngSwitchCase="'atomic:image'">
       <img src="{{block.data.src}}" alt="{{block?.text}}" />
