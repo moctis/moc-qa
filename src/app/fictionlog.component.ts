@@ -158,9 +158,21 @@ export class FictionlogComponent {
     });
   }
 
+  splitBlocks(data) {
+    var result =[];
+    for (var p in data) {
+      result.push(p);
+    }
+    return result;
+  }
+
   setChapter(data) {
-    //console.log('setChapter', data);
+    
     this.data = data;
+    this.blocks = [];
+    console.log('this.data', data.chapter.contentRawState);
+    this.blocks = this.splitBlocks(data.chapter.contentRawState);
+    console.log('setChapter', this.blocks);
     // localStorage.setItem("chapterId."+this.chapterId, JSON.stringify(this.data));
     this.current.chapterId = this.chapterId;
     localStorage.setItem("current." + this.bookId, JSON.stringify(this.current));
