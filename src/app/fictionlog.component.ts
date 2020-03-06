@@ -113,7 +113,6 @@ export class FictionlogComponent {
       this.book = data['data'];
       this.book.unpaid = 0;
       this.book.gold = 0;
-      console.log(this.book);
       this.book.chapterList.chapters.forEach(ch => {
         var g = ch.price.goldCoin / 100;
         this.book.gold += g;
