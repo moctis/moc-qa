@@ -111,6 +111,15 @@ export class FictionlogComponent {
     //setTimeout(() => this.spinnerService.hide(), this.time);
     this.http.post('https://api.k8s.fictionlog.co/graphql', req, options).subscribe(data => {
       this.book = data['data'];
+      this.book.unpaid = 0;
+      this.book.gold = 0;
+      console.log(this.book);
+      this.book.chapterList.chapters.forEach(ch => {
+        var g = ch.price.goldCoin / 100;
+        this.book.gold += g;
+        if (ch.isPurchaseRequired == true) 
+        this.book.unpaid += g;
+      });
 
       localStorage.setItem("bookId." + this.bookId, JSON.stringify(this.book));
       this.current.bookId = this.bookId;
