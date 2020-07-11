@@ -1,4 +1,4 @@
-<div (swiperight)="swipe(-1)" (swipeleft)="swipe(1)" (swipe)="onSwipe($event)">
+<div id="story" (swiperight)="swipe(-1)" (swipeleft)="swipe(1)" (swipe)="onSwipe($event)">
   
   <header>
     <a [routerLink]="['/']" class="btn btn-primary">
@@ -47,4 +47,19 @@
   <!-- <a [routerLink]="['/']" class="btn btn-primary"> Home </a>  -->
 
   <p>{{book?.chapterList?.chapters[current.chapterIndex]?.title}}</p> 
+
+  <button (click)="start()"> start</button>
+<button (click)="pause()"> pause </button>
+<button (click)="resume()"> resume </button>
+<br>
+<input type="text" [(ngModel)]="text">
+<select #langSelect *ngIf="speechData" (change)="setLanguage(langSelect.value)">
+  <option [value]="i" *ngFor="let voice of speechData.voices;let i = index;">
+    {{voice.name}} - {{voice.lang}}
+  </option>
+</select>
+<br>
+<button (click)="speech.volume = speech.volume - 1"> - </button> <button (click)="speech.volume = speech.volume + 1"> + </button> {{speech.volume}}
+
+
 </div>
