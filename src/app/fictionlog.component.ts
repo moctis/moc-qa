@@ -1,8 +1,7 @@
 import { Component, Input, OnInit, OnDestroy } from "@angular/core";
 import { Ng4LoadingSpinnerService } from "ng4-loading-spinner";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { ActivatedRoute } from "@angular/router";
-import Speech from "speak-tts";
+import { ActivatedRoute } from "@angular/router"; 
 
 @Component({
   selector: "fictionlog",
@@ -24,11 +23,6 @@ export class FictionlogComponent {
   private sub: any;
   errorText: any;
   time = 30 * 1000;
-  html = "";
-  text = "";
-  result = "";
-  speech: any;
-  speechData: any;
 
   constructor(
     private http: HttpClient,
@@ -37,36 +31,7 @@ export class FictionlogComponent {
   ) {
     this.current = { chapterIndex: 0 };
 
-    this.speech = new Speech(); // will throw an exception if not browser supported
-    if (this.speech.hasBrowserSupport()) {
-      // returns a boolean
-      console.log("speech synthesis supported");
-      this.speech
-        .init({
-          volume: 1,
-          lang: "en-GB",
-          rate: 1,
-          pitch: 1,
-          voice: "Google UK English Male",
-          splitSentences: true,
-          listeners: {
-            onvoiceschanged: voices => {
-              console.log("Event voiceschanged", voices);
-            }
-          }
-        })
-        .then(data => {
-          // The "data" object contains the list of available voices and the voice synthesis params
-          console.log("Speech is ready, voices are available", data);
-          this.speechData = data;
-          data.voices.forEach(voice => {
-            console.log(voice.name + " " + voice.lang);
-          });
-        })
-        .catch(e => {
-          console.error("An error occured while initializing : ", e);
-        });
-    }
+     
   }
 
   ngOnInit() {
@@ -329,44 +294,5 @@ export class FictionlogComponent {
 
     this.eventText += `${x} ${y}<br/>`;
   }
-  start() {
-    this.html = this.text;
-
-    var temporalDivElement = document.getElementById("story");
-    // Set the HTML content with the providen
-    //temporalDivElement.innerHTML = this.html;
-    // Retrieve the text property of the element (cross-browser support)
-    this.result =
-      temporalDivElement.textContent || temporalDivElement.innerText || "";
-    console.log(this.result);
-    this.text = this.result;
-    this.speech
-      .speak({
-        text: this.result
-      })
-      .then(() => {
-        console.log("Success !");
-      })
-      .catch(e => {
-        console.error("An error occurred :", e);
-      });
-  }
-
-  pause() {
-    this.speech.pause();
-  }
-  resume() {
-    this.speech.resume();
-  }
-
-  setLanguage(i) {
-    console.log(i);
-    console.log(
-      this.speechData.voices[i].lang + this.speechData.voices[i].name
-    );
-    this.speech.setLanguage(this.speechData.voices[i].lang);
-    this.speech.setVoice(this.speechData.voices[i].name);
-
-    this.text = this.speechData.voices[i].lang + ":" + this.speechData.voices[i].name;
-  }
+  
 }
