@@ -366,5 +366,7 @@ export class FictionlogComponent {
     );
     this.speech.setLanguage(this.speechData.voices[i].lang);
     this.speech.setVoice(this.speechData.voices[i].name);
+
+    this.text = this.speechData.voices[i].lang + ":" + this.speechData.voices[i].name;
   }
 }
